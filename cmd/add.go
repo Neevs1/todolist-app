@@ -14,14 +14,12 @@ import (
 var addCmd = &cobra.Command{
 	Use:   "add",
 	Short: "Add a new task to the todoList",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Long: `Using this function the user can new tasks to the todolist
+	      The syntax of adding a new task is shown below
+		[taskname] [priority] [deadline]`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("add called")
+
+		fmt.Println("Please enter new task")
 	},
 }
 

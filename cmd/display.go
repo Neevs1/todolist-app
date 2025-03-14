@@ -1,6 +1,5 @@
 /*
 Copyright © 2025 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
@@ -13,7 +12,7 @@ import (
 // displayCmd represents the display command
 var displayCmd = &cobra.Command{
 	Use:   "display",
-	Short: "A brief description of your command",
+	Short: "Display all the tasks",
 	Long: `A longer description that spans multiple lines and likely contains examples
 and usage of using your command. For example:
 
