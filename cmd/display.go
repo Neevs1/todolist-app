@@ -4,8 +4,12 @@ Copyright © 2025 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"database/sql"
 	"fmt"
 
+	"log"
+
+	_ "github.com/mattn/go-sqlite3"
 	"github.com/spf13/cobra"
 )
 
@@ -20,7 +24,38 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("display called")
+
+		type taskrows struct {
+			ID         int64  `field="id"`
+			priority   int64  `field="priority"`
+			title      string `field="title"`
+			category   string `field="category"`
+			createdate string `field="creation_date"`
+		}
+		db, err := sql.Open("sqlite3", "tasks.db")
+		if err != nil {
+			log.Fatal(err)
+		}
+		var tasks *sql.Rows
+		tasks, err = db.Query("SELECT * FROM tasks")
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer tasks.Close()
+		fmt.Println("ID Priority Title \t Category Creation Time")
+		for tasks.Next() {
+			list := new(taskrows)
+			err = tasks.Scan(&list.ID, &list.priority, &list.title, &list.category, &list.createdate)
+			if err != nil {
+				log.Fatal(err)
+			}
+			fmt.Print(list.ID)
+			fmt.Print(" | ")
+			fmt.Print(list.priority)
+			fmt.Print("     | " + list.title + " | " + list.category + " | " + list.createdate + " |\n")
+
+		}
+
 	},
 }
 
